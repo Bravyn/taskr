@@ -79,11 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
               TextButton(
                 onPressed: () {
-                  print(1);/*
+                  
                   Navigator.push(context,
                   MaterialPageRoute(
                     builder: (context) => RegisterScreen())
-                  );*/
+                  );
                 }, child: Text("Don't have an account? Register"),
                 )
             ],
