@@ -22,13 +22,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final email = _emailController.text;
     final password = _passwordController.text;
 
-    if (email.contains("@") && password.length >= 6 ) {
+    if (email.contains("@") && password.length >= 6) {
       Navigator.pushReplacement(
-        context, 
+        context,
         MaterialPageRoute(builder: (_) => LoginScreen()),
-        );
+      );
     } else {
-      setState (() {
+      setState(() {
         _errorMessage = "Registration failed. Try again";
       });
     }
@@ -48,44 +48,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
           key: _formKey,
           child: Column(
             children: [
-              if(_errorMessage !=  null)
-                  Text(_errorMessage!, style: TextStyle(color: Colors.red)),
+              if (_errorMessage != null)
+                   Text(_errorMessage!, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 150),
               TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: "Email"),
-                validator: (val) => 
-                    val != null && val.contains("@") ? null : "Invalid Email",
-              ),
-
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      hintText: "example@domain.com",
+                      prefixIcon: Icon(Icons.email),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)
+                      )
+                      ),
+                    validator:
+                        (val) =>
+                            val != null && val.contains("@")
+                                ? null
+                                : "Invalid Email",
+                  ),
+              SizedBox(height: 22),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: "Password"),
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  hintText: "Minimum 6 characters",
+                  prefixIcon: Icon(Icons.password_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12)
+                  )
+                  ),
                 obscureText: true,
-                validator: (val) =>
-                    val != null && val.length > 6 ? null : "Min 6 characters",
+                validator:
+                    (val) =>
+                        val != null && val.length > 6
+                            ? null
+                            : "Min 6 characters",
               ),
 
-              SizedBox(height: 16),
+              SizedBox(height: 18),
               _isLoading
                   ? CircularProgressIndicator()
                   : ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()){
-                            _register();
-                          }
-                        },
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _register();
+                      }
+                    },
                     child: Text("Register"),
-                  ) ,
+                  ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context); //go back to login
                 },
                 child: Text("Already have an account? Login"),
               ),
-          
-                        
-
-          ],) ,),),
-      );
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
