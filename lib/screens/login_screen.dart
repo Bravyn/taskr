@@ -38,57 +38,65 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              if (_errorMessage != null)
-                Text(_errorMessage!, style: TextStyle(color: Colors.red)),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: "Email"),
-                validator:
-                    (val) =>
-                        val != null && val.contains("@")
-                            ? null
-                            : "Invalid Email",
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: "Password"),
-                obscureText: true,
-                validator:
-                    (val) =>
-                        val != null && val.length >= 6
-                            ? null
-                            : "Min 6 characters",
-              ),
-              SizedBox(height: 16),
-              _isLoading
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _login();
-                      }
-                    },
-                    child: Text('Login'),
-                  ),
-              TextButton(
-                onPressed: () {
-                  
-                  Navigator.push(context,
-                  MaterialPageRoute(
-                    builder: (context) => RegisterScreen())
-                  );
-                }, child: Text("Don't have an account? Register"),
-                )
-            ],
+      //appBar: AppBar(title: Text("Login")),
+      body: Stack(
+        children: [
+          //image
+          Positioned.fill(
+            child: Image.asset('assets/bgg.jpg', fit: BoxFit.cover),
           ),
-        ),
+          Positioned.fill(
+            child: Container(color: Color.fromARGB(170, 0, 0, 0)),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: "Java",
+                    style: TextStyle(
+                      fontSize: 38,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: [TextSpan(text: " House", style: TextStyle(
+                      fontWeight: FontWeight.w300
+
+                    ))],
+                  ),
+                ),
+
+                
+                SizedBox(height: 170),
+                Text(
+                  "Kenyan Gold, Roasted to Perfection",
+                  style: TextStyle(
+                    fontSize: 38,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w100,
+                  ),
+                ),
+                SizedBox(height: 200),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 237, 214, 214),
+                    foregroundColor: const Color.fromARGB(255, 89, 1, 1),
+                    shadowColor: const Color.fromARGB(111, 249, 104, 104),
+                    elevation: 8,
+                    textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      //color: Color.fromARGB(255, 246, 244, 244),
+                    ),
+                  ),
+                  child: Text("Explore Our Beans"),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
